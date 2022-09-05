@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
+import android.view.WindowInsets
 import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity() {
@@ -31,6 +32,9 @@ class MainActivity : AppCompatActivity() {
 
         mainView = MainView(this)
         setContentView(mainView)
+
+        //端末の画面サイズの取得
+        getWindowMetrics()
 
         //プレイヤー初期化
         myChara = MyChara()
@@ -69,6 +73,26 @@ class MainActivity : AppCompatActivity() {
     private fun anotherLoop(){
         myChara.count2 += 1
         println("anotherLoop run count2 = ${myChara.count2}")
+    }
+
+    //画面サイズ取得　API30から推奨
+    private fun getWindowMetrics(){
+        //まずは画面たてよこ
+        val windowMetrics = windowManager.getCurrentWindowMetrics()
+        val height = windowMetrics.bounds.height()
+        val width  = windowMetrics.bounds.width()
+
+        println("height = ${height}")
+        println("width  = ${width}")
+
+        //Status Bar, Navigation Bar *Title Barは res/values/themes/thems.xmlに追記することで非表示設定にしている
+        val insets: Insets = windowMetrics.windowInsets.getInsetsIgnoringVisibility(WindowInsets.Type.systemBars())
+        val StatusBar = insets.top
+        val NavigationBar = insets.bottom
+
+        println("StatusBar = ${StatusBar}")
+        println("NavigationBwr = ${NavigationBar}")
+
     }
 
 }
