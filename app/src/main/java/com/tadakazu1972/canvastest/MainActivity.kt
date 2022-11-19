@@ -14,6 +14,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var mainView : MainView
     private lateinit var myChara : MyChara
+    private var height: Int = 0
+    private var width: Int = 0
 
     //カウントダウンタイマー準備
     inner class countDownTimer(millisInFuture: Long, countDownInterval: Long) : CountDownTimer(millisInFuture, countDownInterval) {
@@ -65,7 +67,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun mainLoop(){
         myChara.count += 1
-        myChara.move()
+        myChara.move(height, width)
         mainView.invalidate()
         println("mainLoop run count= ${myChara.count}")
     }
@@ -79,8 +81,8 @@ class MainActivity : AppCompatActivity() {
     private fun getWindowMetrics(){
         //まずは画面たてよこ
         val windowMetrics = windowManager.getCurrentWindowMetrics()
-        val height = windowMetrics.bounds.height()
-        val width  = windowMetrics.bounds.width()
+        height = windowMetrics.bounds.height()
+        width  = windowMetrics.bounds.width()
 
         println("height = ${height}")
         println("width  = ${width}")

@@ -16,15 +16,15 @@ class MyChara {
         this.vy = 8f
     }
 
-    public fun move(){
+    public fun move(height: Int, width: Int){
         x = x + vx
         y = y + vy
 
-        if ( x < 0f || x > 1000f ) {
+        if ( x < 0f || x > (width - 64) ) {
             vx = vx * -1
         }
 
-        if ( y < 0f || y > 900f ) {
+        if ( y < 0f || y > (height - 256) ) {
             vy = vy * -1
         }
     }
